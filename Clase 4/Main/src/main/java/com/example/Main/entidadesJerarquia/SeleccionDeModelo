@@ -1,0 +1,5 @@
+Usando para este caso un single table no es lo recomendable, ya que local de musica y local de comidas no tienen casi nada en comun
+y habra muchos null
+The Single Table strategy creates one table for each class hierarchy. This is also the default strategy chosen by JPA if we don't specify one explicitly.
+
+We can define the strategy we want to use by adding the @Inheritance annotation to the super-class:
