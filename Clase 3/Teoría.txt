@@ -1,0 +1,23 @@
+Paginacion:
+
+Hace performantes las consultas, para esto jpql y hibernate usan el
+setMaxResults(): que establece la cantidad de registros que voy a traer.
+		 si quiero mostrar 20 por pagina va a ser 20.
+setFirstResults(): a partir de que registro empezamos a traer.
+
+estos dos metodos manejan toda la paginacion.
+
+
+HAY TRES FORMAS DIFERENTES DE HACER QUERYS.
+El primer aproach es usando el query directamente dentro de la interfaz, haciendo una funcio
+n y vemos que devuelve un iterable o una lista.
+
+
+NAMED QUERYS
+
+son querys que se colocan arriba de la clase en un anotation donde se coloca en principio
+un nombre, se trata de no dejar espacios en el medio, los mismos deben ser similares a
+los metodos.
+
+Da mejor visibilidad en los querys nos metemos y miramos el inicio de la clase
+y ya tenemos todos los querys arriba.

@@ -1,0 +1,103 @@
+En el driver class va el driver de la base de datos.
+
+show sql es para que muestre en la consola siempre el sql resultante.
+
+ddl auto es el permiso para decirle a hibernate que haga update de la base de datos.
+
+el dialecto con el que deba hablar contra la base de datos debemos ponerlo segun
+la base también, por ejemplo nosotros usamos el dialecto de mysql.
+
+Anotation Entity.
+
+es para decir que es una entidad que vamos a querer persistir a traves de la base
+de datos.
+
+luego el anotation id con la manera en que se van generando los values, en nuestro
+caso decidimos que fuera auto incremental.
+
+se puede tambien poner table y especificar los nombres de la tabla.
+
+El respositorio que extiende de crud, lo que le estamos diciendo es que vamos a tener
+una clase dao que extiende de un crud basico que permite tener acceso a todas las 
+operaciones mas basicas relacionadas con bases de datos.
+
+como esta en update se crea automaticamenete la tabla.
+
+-------------
+ASOCIACIONES.
+-------------
+
+Permiten mapear objetos propios dentro del mundo de Hibernate.
+Se usan con colecciones generalmente.
+
+Hay tres tipos de relaciones.
+
+ONE TO MANY
+MANY TO ONE
+
+tipico caso de una persona con una lista de telefonos.
+
+ONE TO ONE
+
+caso avion con un motor.
+
+MANY TO MANY
+
+muchos a muchos...
+
+
+El caso mas común es el ONE TO MANY.
+
+Hay una entidad que tiene como atributo una coleccion, por ejemplo una persona tiene
+una coleccion de telefonos.
+A la entidad que posee la coleccion la conoceremos como EXTREMO ONE.
+la entidad a la que pertenecen los elementos de la conexion se la conoce
+como extremo MANY
+
+la entidad del extremo MANY se relacionara como maximo con una entidad del extremo
+ONE.
+
+
+Ejemplo
+
+una factura podra tener muchos items (Extremo One)
+cada item pertenecera como maximo a una factura (Extremo Many)
+
+Ejecucion:
+
+Hibernate: insert into curso (dias_cursada, fecha_inicio, horas_duracion, nombre) values (?, ?, ?, ?)
+Hibernate: insert into comentario (comentario, usuario) values (?, ?)
+Hibernate: insert into comentario (comentario, usuario) values (?, ?)
+Hibernate: insert into comentario (comentario, usuario) values (?, ?)
+Hibernate: update comentario set curso_id=? where id=?
+Hibernate: update comentario set curso_id=? where id=?
+Hibernate: update comentario set curso_id=? where id=?
+
+Esto estaría significando que se inserta un nuevo curso y posteriormente se insertan
+los comentarios asociados en la tabla comentario y luego se les carga la información.
+
+
+
+IMPORTANTE
+
+Recordar que lo mejor es que los id de cada tabla tengan nombres propios y que no se llamen
+igual nunca, de esta manera cuando uno hace los joinColumn se evitan problemas, como que
+hibernate no entienda de que id estamos hablando, en realidad se puede pero quizas no me 
+parece una buena practica, y no olvidarse de utilizar el cascade = CascadeType.ALL o algun
+tipo de cascading.
+
+
+
+
+    /*Mapped By lo que persisto son las personas, si les agrego nuevos telefonos no se persisten
+    en cambio si a un telefono le agrego una persona es ahi cuando queremos 
+    decir que deben persistirse ambos, tanto el telefono como la persona.
+    Lo que indica el orphanRemoval es que si borro una persona entonces deberan borrarse todos sus items.
+    Gracias al LAZY del fetch no se van a poner en memoria los items al llamar cada vez una persona
+    la manera de cargar los items es con el get items, pero los mismos no vienen cargados por defecto.
+    se va a hacer un fetch de los items solo cuando se los llame por medio del metodo get, sino no.
+    El fetch esta relacionado en el cuando se traen los elementos de la base de datos.*/
+    
+    //Se van a persistir los cambios en los telefonos pero no en las personas
+    //es decir si quiero agregarle un telefono a una persona, lo que tengo que hacer es 
+    //agregar esa persona a el telefono.

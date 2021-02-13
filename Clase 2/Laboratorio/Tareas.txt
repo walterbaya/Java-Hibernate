@@ -1,0 +1,1 @@
+Cuando se guarda una persona deben guardarse todos los telefonos.

@@ -1,0 +1,3 @@
+Siempre elegir hibernate y ademas agregar mysql para tener todos los controladores
+necesarios, luego no olvidarse de ver la clase 1 como ejemplo siempre y no mirar las de
+educacion it ya que tienen varios errores.
